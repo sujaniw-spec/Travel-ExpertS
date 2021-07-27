@@ -1,0 +1,5 @@
+http://localhost:3000/post/create - register user
+
+http://localhost:3000/contact/createmessage  - add message to db
+
+http://localhost:3000/contact/contactmessages - display all messages

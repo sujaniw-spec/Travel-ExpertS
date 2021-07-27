@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  h2 All User Messages
+
+  
+  if messageList
+    each message in messageList
+        table
+            tr
+                td
+                font(style='color:red;') Name 
+                td
+                font(style='color:blue;') #{message.CustFirstName} #{message.CustLastName}
+            tr
+                td
+                font(style='color:red;') Email
+                td
+                font(style='color:blue;') #{message.CustEmail}
+            tr
+                td
+                font(style='color:red;') Message
+                td
+                font(style='color:blue;') #{message.CustMessage}
+
+        

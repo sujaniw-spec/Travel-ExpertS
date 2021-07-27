@@ -1,0 +1,43 @@
+extends layout
+
+block content
+
+  .container
+    br
+    br
+    #greet(style='align-items: center; font-size: large; font-family: Arial, Helvetica, sans-serif; font-style: oblique;color: rgb(151, 80, 218);')
+        center        
+            b  Welcome #{user}  
+    
+
+    table(style='border-width:1px; border-stye:solid; border-color:red;') 
+            br
+            br
+            tr 
+                td(style="padding:5px;color:red")="FirstName"
+                td(style="padding:5px;color:red")="LastName"
+                td(style="padding:5px;color:red")="Email"
+                td(style="padding:5px;color:red")="Message"
+            tr 
+                td(style="padding:5px;color:red")
+                td(style="padding:5px;color:red")
+                td(style="padding:5px;color:red")
+                td(style="padding:5px;color:red")
+    
+
+            each user in myCustomers
+                tr 
+                    td(style="padding:5px")=user.firstname
+                    td(style="padding:5px")=user.lastname
+                    td(style="padding:5px")=user.email 
+                    td(style="padding:5px")=user.message
+
+    br
+    
+    a(href='/contactall') Back
+
+    br
+
+    p 
+        a(href='/') Home
+   
