@@ -1,7 +1,7 @@
 // Require the mongoose module
 var mongoose = require('mongoose');
 // Set up a mongoose connection
-
+//THsi is a copy
 //Local host 
 //var mongoDB = 'mongodb://localhost:27017/blog';
 

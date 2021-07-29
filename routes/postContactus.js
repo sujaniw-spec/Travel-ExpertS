@@ -6,7 +6,7 @@ Date:28/07/20201
 var express = require('express');
 var router = express.Router();
 const Post = require('../models/postcontactusMdl').Post;
-var custId = 0; // to add a unique id to DB
+var custId = 0; // to add a unique id to DB when message added to the DB
 
 
 /* Display all custmer message . */
