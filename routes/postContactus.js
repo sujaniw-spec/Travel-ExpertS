@@ -1,14 +1,15 @@
+/*
+Author: Sujani Wijesunder
+Date:28/07/20201
+ */
+
 var express = require('express');
 var router = express.Router();
 const Post = require('../models/postcontactusMdl').Post;
-var custId = 0;
+var custId = 0; // to add a unique id to DB
 
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-    res.send('respond with a resource');
-});
 
-/* GET all posts listing. */
+/* Display all custmer message . */
 router.get('/contactmessages', function (req, res, next) {
     Post.find((err, posts) => {
         res.render('showallmessages', { messageList: posts });
@@ -16,63 +17,49 @@ router.get('/contactmessages', function (req, res, next) {
 });
 
 
+//when user click the first name render this page
+router.get('/mycustdetails/:firstname', function (req, res, next) {
+    var custname = req.params.firstname;
+    Post.find({ CustFirstName: custname }, function (err, result) {
+        if (err) {
+            console.log(err);
+        } else {
 
-
-
-/* GET users listing. */
-router.get('/addConatctusmessage', function (req, res, next) {
-    const firstName = req.query.user;
-    res.send('<b><center>Thank you ' + firstName + ', your message is recorded. We will get back to you soon!<br><a href="/">Home</a></center></b>');
+            res.render('contactuser', { custName: custname, title: 'usermessage', myCustomers: result });
+        }
+    });
 });
 
-// // Show the create form
-// router.get('/create', function (req, res, next) {
-//   res.render('post-create');
-// });
 
-// Show the user contactus form
+/* GET Thank you message. */
+router.get('/addConatctusmessage', function (req, res, next) {
+    const firstName = req.query.user;
+    res.send('<br><br><b><center>Thank you <font style=color:blue;>' + firstName + '</font>, your message is recorded. We will get back to you soon!<br><br><a href="/">Home</a></center></b>');
+});
+
+// Show the contactus form to submit a message
 router.get('/createcontact', function (req, res, next) {
+    //find the maximum id and add one to it, to create a new unique id
+    Post.find()
+        .sort({ _id: -1 })
+        .limit(1)
+        .then(Post => {
+            custId = Post[0]._id;
+            custId = custId + 1;
+        });
+
     res.render('contactus', {
         title: "ContactUs",
+        pnfound: "Page404.html",
         imgPath: "/img/Logo.jpg"
     });
 });
 
 
-var MongoClient = require('mongodb').MongoClient;
-//var url = "mongodb://localhost:27017/travelexperts";
-var url = "mongodb+srv://Sujani:Sujani123@cluster0.4annu.mongodb.net/travelexperts?retryWrites=true&w=majority";
-
-
-// MongoClient.connect(url, function (err, db) {
-//     if (err) throw err;
-//     var dbo = db.db("travelexperts");
-//     //Sort the result by name:
-//     var sort = { _id: -1 };
-//     //var mysort = { name: -1 };
-//     dbo.collection("contactus").find().limit(1).sort(sort).toArray(function (err, result) {
-//         if (err) throw err;
-//         custId = result[0]._id;
-
-//         // db.close();
-//     });
-// });
-
-// To create a new post
+// To create a new message and send DB
 router.post('/createmessage', function (req, res, next) {
-    // const post = new Post(req.body);
-    //console.log("inside form submit" + req.body);
-    //Find the maxid
-    Post.find()
-        .sort({ _id: -1 })
-        .limit(1)
-        .then(Post => {
-            console.log(Post[0]._id);
-            custId = Post[0]._id;
-        });
 
     const post = new Post();
-    custId = custId + 1;
     post._id = custId;
     post.CustomerId = custId.toString();
     post.CustFirstName = req.body.firstname;
@@ -87,26 +74,13 @@ router.post('/createmessage', function (req, res, next) {
             const errorKeys = Object.keys(err.errors);
             errorKeys.forEach(key => errorArray.push(err.errors[key].message));
             return res.render("contactus", {
-                errors: errorArray
+                errors: errorArray,
+                postdata: req.body // send back data to the form
             });
         }
         res.redirect("/contact/addConatctusmessage?user=" + req.body.firstname);
     });
 
-
-    // post.save(err => {
-    //     // if(err) throw err;
-    //     if (err) {
-    //         console.log("Error***" + err);
-    //         const errorArray = [];
-    //         const errorKeys = Object.keys(err.errors);
-    //         errorKeys.forEach(key => errorArray.push(err.errors[key].message));
-    //         return res.render("contactus", {
-    //             errors: errorArray
-    //         });
-    //     }
-    //     res.redirect("/contact/addConatctusmessage?user=" + req.body.firstname);
-    // });
 });
 
 

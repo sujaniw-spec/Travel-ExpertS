@@ -28,31 +28,35 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light(style='background-color: #b2bd
         li.nav-item
           a.nav-link.active(aria-current='page' href='/') Home
         li.nav-item
-          a.nav-link.active(href='register.html') Register
+          a.nav-link.active(href='/post/create') Register
         li.nav-item.dropdown
           a#navbarScrollingDropdown.nav-link.dropdown-toggle.nav-link.active(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
             | Contact
           ul.dropdown-menu(aria-labelledby='navbarScrollingDropdown')
             li
-              a.dropdown-item(href='contact.html') Contact Us
+              a.dropdown-item(href='/contact/createcontact') Contact Us
             li
-              a.dropdown-item(href='#') Online Help
+              a.dropdown-item(href='/contact/contactmessages')
+                font(style='font-family: Arial, Helvetica, sans-serif; font-size: medium;')
+                  | View All Customer Inquiries   
+            li            
+              a.dropdown-item(href='/../Page404.html') Online Help
         li.nav-item.dropdown
           a#navbarScrollingDropdown.nav-link.dropdown-toggle.nav-link.active(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
             | About Us
           ul.dropdown-menu(aria-labelledby='navbarScrollingDropdown')
             li
-              a.dropdown-item(href='AboutUs.html') Who We Are
+              a.dropdown-item(href='/../AboutUs.html') Who We Are
             li
-              a.dropdown-item(href='#') Coporate Network
+              a.dropdown-item(href='/../Page404.html') Coporate Network
             li
               hr.dropdown-divider
             li
-              a.dropdown-item(href='#') Social Responsibility
+              a.dropdown-item(href='/../Page404.html') Social Responsibility
       center
         ul.navbar-nav.me-auto.my-2.my-lg-0.navbar-nav-scroll(style='--bs-scroll-height: 100px;')
           li.nav-item
-            a.nav-link.active(aria-current='page' href='index.html' style='float:left')
+            a.nav-link.active(aria-current='page' href='/' style='float:left')
               b
               font(style='background-color: rgba(145, 198, 241, 0.699); color:rgb(38, 82, 204)')
                 b
@@ -145,22 +149,22 @@ br
                 td
                   label First Name* :
                 td
-                  input(type='text' name='firstname' required='true')
+                  input(type='text' name='firstname' required='true' value=postdata && postdata.firstname)
               tr
                 td(style='width: 30px;')
                   label Last Name:
                 td
-                  input(type='text' name='lastname')
+                  input(type='text' name='lastname'  value=postdata && postdata.lastname)
               tr
                 td(style='width: 30px;')
                   label Email Address* :
                 td
-                  input(type='email' name='email' required='true')
+                  input(type='email' name='email' required='true' value=postdata && postdata.email)
               tr
                 td(style='width: 30px;')
                   label Message:
                 td
-                  textarea#subject(name='message' style='width:150%;height: 100px;')
+                  textarea#subject(name='message' style='width:150%;height: 100px;')=postdata && postdata.message
               tr
                 td
                   input(type='submit' name='butSubmit' value='SEND')

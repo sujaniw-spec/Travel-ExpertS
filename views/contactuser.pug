@@ -1,43 +1,61 @@
 extends layout
 
 block content
+  h3
+    center All messages sent by #{custName}
+  
+  
 
-  .container
-    br
-    br
-    #greet(style='align-items: center; font-size: large; font-family: Arial, Helvetica, sans-serif; font-style: oblique;color: rgb(151, 80, 218);')
-        center        
-            b  Welcome #{user}  
+  
+  if myCustomers
+            
+    each message in myCustomers
+        
+            hr(style='color:red; size=50px; border-radius:50px; border-style:double')
+                     
+            
+            p(style='font-size:18px')
+                
+                font(style='color:red;') Message &nbsp;
+                
+                font(style='color:blue;') #{message.CustMessage}
+            
+                
+                font(style='color:red;') 
+                
+                font(style='color:blue;')
+            p(style='font-size:18px')    
+                font(style='color:red;') Email &nbsp;
+                
+                font(style='color:blue;') #{message.CustEmail}
+    
+            p(style='font-size:18px')
+                
+                font(style='color:red;') 
+                
+                font(style='color:blue;') 
+            
+                
+                font(style='color:red;') 
+                
+                font(style='color:blue;') 
+            
+                
+                font(style='color:red;') 
+                
+                font(style='color:blue;') 
+    
+    
+     
     
 
-    table(style='border-width:1px; border-stye:solid; border-color:red;') 
-            br
-            br
-            tr 
-                td(style="padding:5px;color:red")="FirstName"
-                td(style="padding:5px;color:red")="LastName"
-                td(style="padding:5px;color:red")="Email"
-                td(style="padding:5px;color:red")="Message"
-            tr 
-                td(style="padding:5px;color:red")
-                td(style="padding:5px;color:red")
-                td(style="padding:5px;color:red")
-                td(style="padding:5px;color:red")
-    
-
-            each user in myCustomers
-                tr 
-                    td(style="padding:5px")=user.firstname
-                    td(style="padding:5px")=user.lastname
-                    td(style="padding:5px")=user.email 
-                    td(style="padding:5px")=user.message
-
+        
     br
+        
     
-    a(href='/contactall') Back
 
     br
 
-    p 
-        a(href='/') Home
-   
+    p(style='font-size:18px') 
+     a(href='/contact/contactmessages/') Back
+    

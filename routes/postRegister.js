@@ -1,19 +1,22 @@
-//Author:Sujani Wijesundera
+/*
+*Author:Sujani Wijesundera
+Date:20/07/2021
+*/
+
 var express = require('express');
 var router = express.Router();
-const Post = require('../models/postRegisterMdl').Post;
+const Post = require('../models/postRegisterMdl').Post; // Get the Customer collection
 var custId = 0;
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
-});
+// router.get('/', function (req, res, next) {
+//   res.send('respond with a resource');
+// });
 
 /* print user a message after registering. */
 router.get('/addregistration', function (req, res, next) {
   const firstName = req.query.user;
-  //console.log(query);
-  res.send('<b><center>' + firstName + ' successfully Registered!</center></b>');
+  res.send('<br><br><b><center><font style=color:blue;>' + firstName + '</font>, You are successfully Registed! Thank You for registering with us!<br><br><a href="/">Home</a></center></b>');
 });
 
 
@@ -40,9 +43,7 @@ router.get('/create', function (req, res, next) {
 // });
 
 
-
-
-// To create a new post
+// Submit new user creationto the database
 router.post('/create', function (req, res, next) {
   //get the maximum _id and add one to create a new id
   Post.find()
@@ -65,13 +66,11 @@ router.post('/create', function (req, res, next) {
   post.CustHomePhone = req.body.homephone;
   post.CustBusPhone = req.body.businessphone;
   post.CustEmail = req.body.email;
-  console.log("berore");
   post.role = "customer";
   post.AgentId = "2";
-  console.log("after" + post);
+
   post.save(err => {
 
-    // if(err) throw err;
     if (err) {
       console.log("Error");
       const errorArray = [];
@@ -79,6 +78,7 @@ router.post('/create', function (req, res, next) {
       errorKeys.forEach(key => errorArray.push(err.errors[key].message));
       return res.render("register", {
         imgPath: "/img/Logo.jpg",
+        postdata: req.body, // to display entered values in text boxes when error occur.
         errors: errorArray
       });
     }

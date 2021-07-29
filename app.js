@@ -1,18 +1,17 @@
+/**
+ * Author:Sujani Wijesundera
+ */
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+//Routers
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-//var postRouter = require('./routes/post');
-
 var postRouter = require('./routes/postRegister');
-
 var postContact = require('./routes/postContactus');
-
-//var postRegister = require('./routes/register');
 
 var app = express();
 
@@ -26,14 +25,46 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+//DB Connenction---------------------------------------------------
+// Require the mongoose module
+var mongoose = require('mongoose');
+
+// Set up a mongoose connection
+//Local host 
+//var mongoDB = 'mongodb://localhost:27017/travelexperts';
+var mongoDB = "mongodb+srv://Sujani:Sujani123@cluster0.4annu.mongodb.net/travelexperts?retryWrites=true&w=majority";
+
+//my connection cluster db
+//var mongoDB = "mongodb+srv://Ilup75:Ilup75@cluster0.zigid.mongodb.net/blog?retryWrites=true&w=majority";
+
+//Travelexperts
+//var mongoDB = "mongodb+srv://Ilup75:Ilup75@cluster0.zigid.mongodb.net/travelexperts?retryWrites=true&w=majority";
+
+//old way to get connection
+//mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+
+//new way from .env
+mongoose.connect(process.env.MONGO_URL || mongoDB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+// Get the connection
+var db = mongoose.connection;
+// Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+db.once('open', function () {
+  console.log("we're connected!*")
+});
+
+//end DB connection-----------------------------------------------------
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/post', postRouter);
-
 app.use('/contact', postContact);
-
-
-//app.use('/register', postRegister);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

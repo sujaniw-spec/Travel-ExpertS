@@ -1,8 +1,10 @@
+//Author: Sujani Wijesundera
+//Show random Greeting message
 var express = require('express');
 var router = express.Router();
 
 var GreetMessage = require('./Greeting'); // module for greeting
-//Greeting msg
+
 var greeingMsg;
 
 //Clear the cache to get random greeting again
@@ -14,7 +16,6 @@ function clearModule(moduleName) {
     console.log(`[clear] module: ${mp}`)
   }
 }
-
 
 //Relaod the Random creeting module again
 function requireReload(moduleName) {
@@ -37,14 +38,6 @@ router.get('/', function (req, res, next) {
   });
 
 });
-
-
-
-//if request page is not found
-// router.use((req, res, next) => {
-//   res.status(404).redirect("Page404.html");
-// });
-
 
 
 module.exports = router;

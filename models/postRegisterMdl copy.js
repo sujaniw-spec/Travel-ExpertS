@@ -1,37 +1,6 @@
 // Require the mongoose module
 var mongoose = require('mongoose');
 const { init } = require('../app');
-// Set up a mongoose connection
-
-//var Schema = mongoose.Schema;
-
-//Local host 
-//var mongoDB = 'mongodb://localhost:27017/travelexperts';
-
-
-//Mostafa's connection to cluster db
-//var mongoDB = "mongodb+srv://mongo_user:ss123@cluster0.tuddo.mongodb.net/blog?retryWrites=true&w=majority";
-
-//my connection cluster db - team travel
-var mongoDB = "mongodb+srv://Sujani:Sujani123@cluster0.4annu.mongodb.net/travelexperts?retryWrites=true&w=majority";
-
-//Travelexperts - my cluster
-//var mongoDB = "mongodb+srv://Ilup75:Ilup75@cluster0.zigid.mongodb.net/travelexperts?retryWrites=true&w=majority";
-
-
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
-//mongoose.set('useCreateIndex', true);
-
-// Get the connection
-var db = mongoose.connection;
-// Bind connection to error event (to get notification of connection errors)
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-db.once('open', function () {
-    console.log("we're connected!")
-});
-
-
 
 var lengthValidator = function (val) {
     if (val && val.length >= 5) {
