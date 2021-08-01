@@ -75,35 +75,37 @@ br
     br
     br
     br
-    .card.border-info.mb-3(style='max-width: 18rem;')
-      .card-header.fontclass Head Office -Calgary
-      .card-body.fontclasswhite
+    br
+    br
+    br
+    
+    if agencies
+    - var i=0
+     each ageny in agencies
+
+      .card.border-info.mb-3(style='max-width: 18rem;')
+      if i==0
+        .card-header.fontclass Head Office -#{ageny.AgncyCity}
+        - i= i+1
+      else 
+        .card-header.fontclass Branch Office -#{ageny.AgncyCity}
+      .card-body.text-info
         h5.card-title Address
-        p.card-text
+        p.card-text.text-info #{ageny.AgncyAddress}, #{ageny.AgncyProv}, #{ageny.AgncyPostal}, #{ageny.AgncyCountry}                 
+  
           section
-            address
-              b
-                | 100 4
-                sup th
-                |  Avenue SE.
-                br
-                |                                 Calgary Alberta
-                br
-                |                                 Canada
-                br
-                |                                 T2G 4Y8
-              br
+            
               // <center>
-              table.fontclasswhite(width='100%' border='1' style='border-color: rgb(185, 200, 228);')
+              table.text-info(width='100%' border='1' style='border-color: rgb(185, 200, 228);')
                 tr
-                  td(colspan='3') &#xF4DE;1(403)-343-234
+                  td(colspan='3') &#xF4DE;#{ageny.AgncyPhone}
                 tr
                   td
-                    | &#xF5B7;&nbsp;1(403)-222-434
+                    | &#xF5B7;&nbsp;#{ageny.AgncyFax}
                 tr
                   td
                     | &#x2709;
-                    a(href='mailto:webmaster@travelexpert.com') info@travelexpert.com
+                    a(href='mailto:webmaster@travelexpert.com') #{ageny.AgencyEmail}
                 tr
                   td
                     img(src='/img/Facebook.jpg' alt='facebook')
@@ -117,6 +119,10 @@ br
         //
           <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
           additional content. This content is a little bit longer.</p>
+        if agents
+          each agent in agents
+            h5 #{agent.AgtFirstName}
+
         ul(type='round')
           li Agent Name: Lucky
           ul(type='square')

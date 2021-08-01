@@ -60,6 +60,7 @@ head
     float: left;
     }
 // bootstrp code for menu
+//if currentUser && currentUser.role == "manager"
 nav.navbar.navbar-expand-lg.navbar-light.bg-light(style='background-color: rgb(184,191,201); padding: 0px;')
   .container-fluid
     button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarScroll' aria-controls='navbarScroll' aria-expanded='false' aria-label='Toggle navigation')
@@ -69,6 +70,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light(style='background-color: rgb(1
         li.nav-item
           a.nav-link.active(aria-current='page' href='/')
             b Home
+            
         li.nav-item
           a.nav-link.active(href='/post/create')
             b Register
@@ -106,6 +108,27 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light(style='background-color: rgb(1
               hr.dropdown-divider
             li
               a.dropdown-item(href='Page404.html') Social Responsibility
+        
+        center
+        br  
+        li.nav-item
+        
+         a.nav-link.active(aria-current='page' href='/')
+           
+         .content 
+            if currentUser
+              span Welcome Back #{currentUser.username}  
+                a(href="/log-out") Log Out
+            else
+              include login.pug
+
+
+                
+          
+        
+
+
+
       center
         ul.navbar-nav.me-auto.my-2.my-lg-0.navbar-nav-scroll(style='--bs-scroll-height: 100px;')
           li.nav-item

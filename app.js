@@ -9,10 +9,14 @@ var logger = require('morgan');
 
 //Routers
 var indexRouter = require('./routes/index');
+//User registration with passport
 var usersRouter = require('./routes/users');
-var postRouter = require('./routes/postRegister');
+//comment this b/cof passport
+//var postRouter = require('./routes/postRegister');
+//end comment
 var postContact = require('./routes/postContactus');
 
+const mongoSanitize = require("express-mongo-sanitize");
 var app = express();
 
 // view engine setup
@@ -25,6 +29,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// to replace prohibited characters with _, use:
+app.use(
+  mongoSanitize({
+    replaceWith: "_",
+  })
+);
 
 //DB Connenction---------------------------------------------------
 // Require the mongoose module
@@ -61,9 +72,17 @@ db.once('open', function () {
 
 //end DB connection-----------------------------------------------------
 
+// -------------------------------------------------------------
+// For Passport.js
+require("./my-passport").init(app);
+// -------------------------------------------------------------
+
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/post', postRouter);
+app.use('/post', usersRouter);
+//comment this becouese of passport
+//app.use('/post', postRouter);
+//end comment
 app.use('/contact', postContact);
 
 // catch 404 and forward to error handler

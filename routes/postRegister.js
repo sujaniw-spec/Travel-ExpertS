@@ -20,8 +20,16 @@ router.get('/addregistration', function (req, res, next) {
 });
 
 
-// Show the use registration form
+// Show the user to registration form
 router.get('/create', function (req, res, next) {
+  //get the maximum _id and add one to create a new id
+  Post.find()
+    .sort({ _id: -1 })
+    .limit(1)
+    .then(Post => {
+      custId = Post[0]._id;
+    });
+
   res.render('register', {
     title: "register",
     imgPath: "/img/Logo.jpg"
@@ -45,16 +53,10 @@ router.get('/create', function (req, res, next) {
 
 // Submit new user creationto the database
 router.post('/create', function (req, res, next) {
-  //get the maximum _id and add one to create a new id
-  Post.find()
-    .sort({ _id: -1 })
-    .limit(1)
-    .then(Post => {
-      custId = Post[0]._id;
-    });
 
   const post = new Post();
-  custId = custId + 1;
+
+  custId = custId + 1;  //increase existing id by one
   post._id = custId;
   post.CustomerId = custId.toString();
   post.CustFirstName = req.body.firstname;
@@ -66,8 +68,10 @@ router.post('/create', function (req, res, next) {
   post.CustHomePhone = req.body.homephone;
   post.CustBusPhone = req.body.businessphone;
   post.CustEmail = req.body.email;
+  post.CustPassword = req.body.password;
+
   post.role = "customer";
-  post.AgentId = "2";
+  post.AgentId = "0";
 
   post.save(err => {
 
