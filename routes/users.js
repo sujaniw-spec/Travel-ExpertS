@@ -10,6 +10,7 @@ var router = express.Router();
 const { User } = require("../models/user");
 //const User = require('../models/postRegisterMdl').User; // Get the Customer collection
 const bcrypt = require("bcryptjs");
+var custId = 0;
 
 const pageRegister = {
   pagetitle: "Sign-Up",
@@ -31,7 +32,7 @@ router.get('/addregistration', function (req, res, next) {
 });
 
 router.get('/login', function (req, res, next) {
-  console.log("&&&&&&&&&");
+
   //const firstName = req.query.user;
   res.send('<br><br><b><center><font style=color:blue;>vv</font>, You are successfully login! Thank You for registering with us!<br><br><a href="/">Home</a></center></b>');
 });
@@ -45,7 +46,7 @@ router.get('/create', function (req, res, next) {
     .sort({ _id: -1 })
     .limit(1)
     .then(User => {
-      custId = User[0]._id;
+      custcustIdId = User[0]._id;
     });
 
   res.render('register', {
@@ -83,8 +84,8 @@ router.post('/create', function (req, res, next) {
     user.CustEmail = req.body.email;
     user.username = req.body.email;
     user.password = req.body.password;
-    user.role = "customer";
-    user.AgentId = "0";
+    user.role = "Senior Agent";
+    user.AgentId = 1;
 
 
     const errs = user.validateSync(); // Run the model validation

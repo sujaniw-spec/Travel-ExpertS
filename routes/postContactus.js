@@ -11,10 +11,11 @@ const { Agent } = require("../models/AgentsMdl");
 var custId = 0; // to add a unique id to DB when message added to the DB
 var i = 0;
 
-
-
 // Show the contactus form to submit a message and get all company office get from db, And listed all agents
 router.get('/createcontact', function (req, res, next) {
+    var arrayCalgary = [];
+    var arrayOkotus = [];
+
     //find the maximum id and add one to it, to create a new unique id
     Post.find()
         .sort({ _id: -1 })
@@ -30,17 +31,27 @@ router.get('/createcontact', function (req, res, next) {
         //  i= i+1;
         //  var agentresult1 = getAgents(i, agencies, req, res, next)
 
-        Agent.find({ AgencyId: agencies[i].AgencyId }, function (err, result) {
-            //Agent.find({}, function (err, result) {
+        // Agent.find({ AgencyId: agencies[i].AgencyId }, function (err, result) {
+        Agent.find({}, function (err, result) {
             if (err) {
                 console.log(err);
             } else {
-                console.log(result);
+
+                result.forEach(function (item) {
+                    if (item.AgencyId == 1) {
+                        arrayCalgary.push(item);
+                    }
+                    if (item.AgencyId == 2) {
+                        arrayOkotus.push(item);
+                    }
+                });
+
                 //res.render('contactuser', { custName: custname, title: 'usermessage', myCustomers: result });
                 res.render('contactus', {
                     title: "ContactUs",
                     agencies: agencies,
-                    agents: result,
+                    agentcalgary: arrayCalgary,
+                    agentokotos: arrayOkotus,
                     pnfound: "Page404.html",
                     imgPath: "/img/Logo.jpg"
                 });
@@ -51,6 +62,7 @@ router.get('/createcontact', function (req, res, next) {
     });
 
 });
+
 
 function getAgents(index, arr, req, res, next) {
     Agent.find({ AgencyId: arr[index].AgencyId }, function (err, result) {
@@ -133,5 +145,13 @@ router.get('/mycustdetails/:firstname', function (req, res, next) {
         }
     });
 });
+
+
+
+//////////
+
+
+
+
 
 module.exports = router;

@@ -8,13 +8,18 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 //Routers
+
 var indexRouter = require('./routes/index');
-//User registration with passport
+//User registration with passport - Sujani
 var usersRouter = require('./routes/users');
-//comment this b/cof passport
-//var postRouter = require('./routes/postRegister');
-//end comment
+//register user -Sujani
 var postContact = require('./routes/postContactus');
+//update contact - Sujani
+var updateContact = require('./routes/updateContacts');
+
+//David's Packages
+var travelPacksRouter = require("./routes/travel_packages")
+
 
 const mongoSanitize = require("express-mongo-sanitize");
 var app = express();
@@ -37,7 +42,7 @@ app.use(
   })
 );
 
-//DB Connenction---------------------------------------------------
+//DB Connenction---------------------------------------------------Sujani Added
 // Require the mongoose module
 var mongoose = require('mongoose');
 
@@ -70,22 +75,27 @@ db.once('open', function () {
   console.log("we're connected!*")
 });
 
-//end DB connection-----------------------------------------------------
+//end DB connection-----------------------------------------------------End Sujani Added
 
 // -------------------------------------------------------------
-// For Passport.js
+// For Passport.js - Sujani Added
 require("./my-passport").init(app);
 // -------------------------------------------------------------
 
 
 app.use('/', indexRouter);
+//Sujani - user register route
 app.use('/post', usersRouter);
-//comment this becouese of passport
-//app.use('/post', postRouter);
-//end comment
+//Sujani - show contacts route
 app.use('/contact', postContact);
+//Sujani - update contact route
+app.use('/update', updateContact);
 
-// catch 404 and forward to error handler
+//David-  Show packages route
+app.use("/travel_packages", travelPacksRouter)
+
+
+//catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });

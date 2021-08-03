@@ -113,37 +113,46 @@ br
 .row.row-cols-1.row-cols-md-3.g-4
   .col
     .card.h-100
-      .card-body.card-text.fontclasswhite
-        h5.card-text.fontclasswhite
+      .card-body.card-text.info.mb-3
+        h5.card-text.info.mb-3
           b Agent Contacts
         //
           <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
           additional content. This content is a little bit longer.</p>
-        if agents
-          each agent in agents
-            h5 #{agent.AgtFirstName}
+        if agentcalgary
+          p
+           font(color='red')
+            b Calgary Agents
+          each agent in agentcalgary
+            
+            ul(type='round')
+             li Agent Name: #{agent.AgtFirstName} #{agent.AgtLastName}
+              ul(type='square')
+               li Phone: #{agent.AgtBusPhone}
+               li
+                | Email: 
+                a(href='mailto:webmaster@travelexpert.com') #{agent.AgtEmail}
+          br
+        agentcalgary=null
 
-        ul(type='round')
-          li Agent Name: Lucky
-          ul(type='square')
-            li Phone: 1(403) 555 343
-            li
-              | Email: 
-              a(href='mailto:webmaster@travelexpert.com') aaaaaaaa@travelexpert.com
+
+        if agentokotos
+          p
+           font(color='red')
+            b Okotas Agents
+           
+          each agent in agentokotos
+            ul(type='round')
+             li Agent Name: #{agent.AgtFirstName} #{agent.AgtLastName}
+              ul(type='square')
+               li Phone: #{agent.AgtBusPhone}
+               li
+                | Email: 
+                a(href='mailto:webmaster@travelexpert.com') #{agent.AgtEmail}
           br
-          li  Agent Name: Lily
-          ul(type='square')
-            li Phone: 1(403) 554 342
-            li
-              | Email: 
-              a(href='mailto:webmaster@travelexpert.com') bbbbbb@travelexpert.com
-          br
-          li Agent Name: cloud
-          ul(type='square')
-            li Phone: 1(403) 232 342
-            li
-              | Email: 
-              a(href='mailto:webmaster@travelexpert.com') ccccccc@travelexpert.com
+        agentokotos=null  
+
+          
   .col
     .card.h-100
       .card-body
