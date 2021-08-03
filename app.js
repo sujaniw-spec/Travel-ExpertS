@@ -18,7 +18,7 @@ var postContact = require('./routes/postContactus');
 var updateContact = require('./routes/updateContacts');
 
 //David's Packages
-var travelPacksRouter = require("./routes/travel_packages")
+//var travelPacksRouter = require("./routes/travel_packages")
 
 
 const mongoSanitize = require("express-mongo-sanitize");
@@ -92,7 +92,7 @@ app.use('/contact', postContact);
 app.use('/update', updateContact);
 
 //David-  Show packages route
-app.use("/travel_packages", travelPacksRouter)
+//app.use("/travel_packages", travelPacksRouter)
 
 
 //catch 404 and forward to error handler
